@@ -6,12 +6,6 @@ permissions: write-all
 env:
   # github image repository url - used to cache docker images
   IMG_REPO_URL: ghcr.io/jose-d/build-slurm-rocky8
-  # version of openpmix and slurm to download and build together
-  PMIX_VERSION: 5.0.5
-  SLURM_VERSION: 24.11.0
-  # version of CUDA to take NVML library from:
-  NVML_VERSION: 12-6
-  # files used as cache for variables sharing
   GLOBAL_VARS_FILE: global_vars.txt
 jobs:
   prolog:
@@ -27,24 +21,12 @@ jobs:
           BASEIMAGE_RELTAG="baseimg_${RELTAG}"
           BASEIMAGE_URL="${IMG_REPO_URL}:${BASEIMAGE_RELTAG}"
 
-          SLURMIMAGE_RELTAG="slurmimg_${RELTAG}"
-          SLURMIMAGE_URL="${IMG_REPO_URL}:${SLURMIMAGE_RELTAG}"
-
-          PMIXIMAGE_RELTAG="pmiximg_${RELTAG}"
-          PMIXIMAGE_URL="${IMG_REPO_URL}:${PMIXIMAGE_RELTAG}"
-
           touch $GLOBAL_VARS_FILE
 
           echo "RELTAG=${RELTAG}" | tee --append $GLOBAL_VARS_FILE $GITHUB_STEP_SUMMARY
 
           echo "BASEIMAGE_RELTAG=${BASEIMAGE_RELTAG}" | tee --append $GLOBAL_VARS_FILE $GITHUB_STEP_SUMMARY
           echo "BASEIMAGE_URL=${BASEIMAGE_URL}" | tee --append $GLOBAL_VARS_FILE $GITHUB_STEP_SUMMARY
-
-          echo "PMIXIMAGE_RELTAG=${PMIXIMAGE_RELTAG}" | tee --append $GLOBAL_VARS_FILE $GITHUB_STEP_SUMMARY
-          echo "PMIXIMAGE_URL=${PMIXIMAGE_URL}" | tee --append $GLOBAL_VARS_FILE $GITHUB_STEP_SUMMARY
-
-          echo "SLURMIMAGE_RELTAG=${SLURMIMAGE_RELTAG}" | tee --append $GLOBAL_VARS_FILE $GITHUB_STEP_SUMMARY
-          echo "SLURMIMAGE_URL=${SLURMIMAGE_URL}" | tee --append $GLOBAL_VARS_FILE $GITHUB_STEP_SUMMARY
 
 
       - name: Upload GLOBAL_VARS_FILE to artifacts
