@@ -5,7 +5,7 @@ on: workflow_dispatch
 permissions: write-all
 env:
   # github image repository url - used to cache docker images
-  IMG_REPO_URL: ghcr.io/jose-d/build-slurm-rocky8
+  IMG_REPO_URL: ghcr.io/jose-d/docker-images-rocky8
   GLOBAL_VARS_FILE: global_vars.txt
 jobs:
   prolog:
@@ -64,7 +64,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
           
       - name: Build and push
-        uses: docker/build-push-action@v5.1.0
+        uses: docker/build-push-action@v6.15.0
         with:
           context: "{{defaultContext}}:.github/dockerfiles/base"
           push: true
