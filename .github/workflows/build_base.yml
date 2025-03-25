@@ -1,5 +1,5 @@
 ---
-name: Test slurm docker image build
+name: Do slurm build docker image build
 run-name: ${{ github.actor }} is attempting to build slurm docker image 🚀
 on: workflow_dispatch
 permissions: write-all
